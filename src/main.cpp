@@ -8,7 +8,7 @@ int main(int argv, char** args)
 {
   SDL_Init(SDL_INIT_EVERYTHING);
 
-  SDL_Window* window = SDL_CreateWindow("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W_WIDTH, W_HEIGHT, 0);
+  SDL_Window* window = SDL_CreateWindow("Wordle Clone", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W_WIDTH, W_HEIGHT, 0);
   SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
   bool isRunning = true;
