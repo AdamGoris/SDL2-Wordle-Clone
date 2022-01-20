@@ -3,7 +3,7 @@
 class Letter
 {
   private:
-    const int SIZE = 50;
+    const int SIZE = 100;
     int x;
     int y;
 
@@ -11,11 +11,11 @@ class Letter
     char value; // the character associated with this letter object
     bool value_is_visible; // whether to show the value in this letter
 
-    Letter(int x, int y) // Constructor
+    Letter(int x_pos, int y_pos) // Constructor
     {
       value_is_visible = false;
-      x = x;
-      y = y;
+      x = x_pos;
+      y = y_pos;
     }
     
     // Letter draw function
@@ -25,6 +25,12 @@ class Letter
 
 void Letter::draw(SDL_Renderer* renderer)
 {
+  // Set the draw color to black
+
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+  // Draw the outer rect of the letter
+
   SDL_Rect rect;
   rect.x = x;
   rect.y = y;
