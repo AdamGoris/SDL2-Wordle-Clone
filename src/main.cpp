@@ -36,9 +36,9 @@ int main(int argv, char** args)
 
     SDL_RenderClear(renderer);
 
-    // Draw the background in black
+    // Draw the background in light grey
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 230, 230, 230, 255);
 
     // Render updated renderer
 
