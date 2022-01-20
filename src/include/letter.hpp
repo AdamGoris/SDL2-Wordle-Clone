@@ -11,14 +11,12 @@ class Letter
     char value; // the character associated with this letter object
     bool value_is_visible; // whether to show the value in this letter
 
-    Letter(int x_pos, int y_pos) // Constructor
+    Letter(int x_pos, int y_pos)
     {
       value_is_visible = false;
       x = x_pos;
       y = y_pos;
     }
-    
-    // Letter draw function
 
     void draw(SDL_Renderer* renderer);
 };
