@@ -13,7 +13,7 @@ class Row
     int letter_gap;
 
   public:
-    Letter letters[5];
+    Letter letters[NUM_LETTERS];
 
     Row(int x, int y, int ls)
     {
