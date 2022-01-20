@@ -1,4 +1,4 @@
-This repo is for personal use for practicing/learning SDL2.
+This repo is for personal use for practicing SDL2. It is an open source clone of the game ['Wordle'](https://www.powerlanguage.co.uk/wordle/).
 
 ## Installation
 
