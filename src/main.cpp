@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include <iostream>
-#include <letter.hpp>
+#include <row.hpp>
 
 const int W_WIDTH = 1200;
 const int W_HEIGHT = 900;
@@ -15,9 +15,9 @@ int main(int argv, char** args)
   bool isRunning = true;
   SDL_Event event;
 
-  // Initialize letter
+  // Initialize Row of Letters
 
-  Letter letter(50, 50);
+  Row row(50, 50);
 
   while (isRunning)
   {
@@ -41,9 +41,9 @@ int main(int argv, char** args)
 
     SDL_RenderClear(renderer);
 
-    // Draw the Letter
+    // Draw the Row
 
-    letter.draw(renderer);
+    row.draw(renderer);
 
     // Draw the background in light grey
 
