@@ -17,24 +17,12 @@ class Row
       x = x_pos;
       y = y_pos;
 
-      // Initialise letter objects
-
-      int* i = new int(0);
-      while (*i < NUM_LETTERS)
+      for (Letter &letter : letters)
       {
-        // Set the x and y coordinate of the letter
-
-        letters[*i].setPos(x, y);
-
-        // y remains constant, x increases
+        letter.setPos(x,y);
 
         x += 150;
-
-        // Increment i
-
-        *i = *i + 1;
       }
-      delete i;
     }
 
     void draw(SDL_Renderer* renderer);
@@ -48,11 +36,8 @@ void Row::draw(SDL_Renderer* renderer)
 
   // Draw NUM_LETTERS letters
 
-  int* i = new int(0);
-  while (*i < NUM_LETTERS)
+  for (Letter &letter : letters)
   {
-    letters[*i].draw(renderer);
-    *i = *i + 1;
+    letter.draw(renderer);
   }
-  delete i;
 }
