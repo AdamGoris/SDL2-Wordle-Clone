@@ -17,7 +17,7 @@ int main(int argv, char** args)
 
   // Initialize Row of Letters
 
-  Row row(50, 50);
+  Row row(50, 50, 100);
 
   while (isRunning)
   {
