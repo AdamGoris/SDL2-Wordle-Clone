@@ -17,6 +17,9 @@ class Row
       x = x_pos;
       y = y_pos;
 
+      /* Set the x and y pos for each letter
+      in the letters array */
+
       for (Letter &letter : letters)
       {
         letter.setPos(x,y);
