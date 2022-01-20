@@ -1,8 +1,9 @@
 #include <SDL.h>
 #include <iostream>
+#include <letter.hpp>
 
-const int W_WIDTH = 800;
-const int W_HEIGHT = 600;
+const int W_WIDTH = 1200;
+const int W_HEIGHT = 900;
 
 int main(int argv, char** args)
 {
@@ -13,6 +14,10 @@ int main(int argv, char** args)
 
   bool isRunning = true;
   SDL_Event event;
+
+  // Initialize letter
+
+  Letter letter(50, 50);
 
   while (isRunning)
   {
@@ -35,6 +40,10 @@ int main(int argv, char** args)
     // Clear the renderer
 
     SDL_RenderClear(renderer);
+
+    // Draw the Letter
+
+    letter.draw(renderer);
 
     // Draw the background in light grey
 
