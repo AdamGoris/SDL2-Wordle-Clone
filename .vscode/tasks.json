@@ -10,7 +10,7 @@
 				"src\\*.cpp",
 				"-o",
 				"build\\game.exe",
-				"-IC:/SDL2/SDL2-devel-2.0.20/x86_64-w64-mingw32/include",
+				"-IC:/SDL2/SDL2-devel-2.0.20/x86_64-w64-mingw32/include/SDL2",
 				"-LC:/SDL2/SDL2-devel-2.0.20/x86_64-w64-mingw32/lib",
 				"-lmingw32",
 				"-lSDL2main",
