@@ -34,6 +34,8 @@ class Row
       }
     }
 
+    Row() = default;
+
     void draw(SDL_Renderer* renderer);
 };
 
