@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include <iostream>
-#include <row.hpp>
+#include <grid.hpp>
 
 const int W_WIDTH = 1200;
 const int W_HEIGHT = 900;
@@ -15,9 +15,10 @@ int main(int argv, char** args)
   bool isRunning = true;
   SDL_Event event;
 
-  // Initialize Row of Letters
+  // Initialize Grid of Letters
+  // At x,y = 50,50; 5 cols and rows; letter size 100 with gap 50;
 
-  Row row(50, 50, 100);
+  Grid grid(50, 50, 5, 5, 100, 50);
 
   while (isRunning)
   {
@@ -41,9 +42,9 @@ int main(int argv, char** args)
 
     SDL_RenderClear(renderer);
 
-    // Draw the Row
+    // Draw the Grid
 
-    row.draw(renderer);
+    grid.draw(renderer);
 
     // Draw the background in light grey
 
