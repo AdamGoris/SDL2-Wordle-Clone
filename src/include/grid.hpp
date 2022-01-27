@@ -31,12 +31,12 @@ class Grid
 
       for (int i = 0; i < num_rows; i++)
       {
-        Row row(x_pos, y_pos, letter_size, letter_gap);
+        Row row(x_pos, y_pos, num_cols, letter_size, letter_gap);
         rows.push_back(row);
 
         // Increment y pos for next row
 
-        y_pos += 150;
+        y_pos += letter_gap;
       }
     }
     
