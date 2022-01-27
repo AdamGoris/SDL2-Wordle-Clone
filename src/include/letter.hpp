@@ -18,13 +18,6 @@ class Letter
       size = s;
     }
 
-    Letter() // Default constructor
-    {
-      value_is_visible = false;
-      x_pos = 0;
-      y_pos = 0;
-    }
-
     void draw(SDL_Renderer* renderer);
     void setPos(int x_pos, int y_pos, int s);
 };
