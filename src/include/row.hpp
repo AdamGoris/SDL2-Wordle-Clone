@@ -7,30 +7,27 @@ class Row
     static const int NUM_LETTERS = 5;
     int x_pos;
     int y_pos;
-    int letter_x_pos;
-    int active_letter = 0;
     int letter_size;
     int letter_gap;
 
   public:
     Letter letters[NUM_LETTERS];
 
-    Row(int x, int y, int ls)
+    Row(int x, int y, int ls, int lg)
     {
       x_pos = x;
       y_pos = y;
-      letter_x_pos = x;
       letter_size = ls;
-      letter_gap = letter_size + 50;
+      letter_gap = lg;
 
       /* Set the x and y pos for each letter
       in the letters array */
 
       for (Letter &letter : letters)
       {
-        letter.setPos(letter_x_pos, y_pos, letter_size);
+        letter.setPos(x_pos, y_pos, letter_size);
 
-        letter_x_pos += letter_gap;
+        x_pos += letter_gap;
       }
     }
 
