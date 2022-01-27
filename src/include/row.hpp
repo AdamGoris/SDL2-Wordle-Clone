@@ -1,37 +1,43 @@
 #include <SDL.h>
 #include <letter.hpp>
+#include <iostream>
+#include <vector>
+
+using namespace std;
 
 class Row
 {
   private:
-    static const int NUM_LETTERS = 5;
     int x_pos;
     int y_pos;
+    int num_letters;
     int letter_size;
     int letter_gap;
 
   public:
-    Letter letters[NUM_LETTERS];
+    vector<Letter> letters;
 
-    Row(int x, int y, int ls, int lg)
+    Row(int x, int y, int nl, int ls, int lg)
     {
       x_pos = x;
       y_pos = y;
+      num_letters = nl;
       letter_size = ls;
       letter_gap = lg;
 
       /* Set the x and y pos for each letter
       in the letters array */
 
-      for (Letter &letter : letters)
+      for (int i = 0; i < num_letters; i++)
       {
-        letter.setPos(x_pos, y_pos, letter_size);
+        Letter letter(x_pos, y_pos, letter_size);
+        letters.push_back(letter);
+
+        // Increment x_pos of next letter
 
         x_pos += letter_gap;
       }
     }
-
-    Row() = default;
 
     void draw(SDL_Renderer* renderer);
 };
