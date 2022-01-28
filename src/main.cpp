@@ -35,6 +35,10 @@ int main(int argv, char** args)
           {
             isRunning = false;
           }
+          else if (event.key.keysym.sym == SDLK_RIGHT)
+          {
+            grid.nextActiveLetter();
+          }
       }
     }
 
