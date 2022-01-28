@@ -19,7 +19,6 @@ class Letter
     }
 
     void draw(SDL_Renderer* renderer);
-    void setPos(int x_pos, int y_pos, int s);
 };
 
 void Letter::draw(SDL_Renderer* renderer)
@@ -32,11 +31,4 @@ void Letter::draw(SDL_Renderer* renderer)
   rect.w = size;
   rect.h = size;
   SDL_RenderDrawRect(renderer, &rect);
-}
-
-void Letter::setPos(int x, int y, int s)
-{
-  x_pos = x;
-  y_pos = y;
-  size = s;
 }
