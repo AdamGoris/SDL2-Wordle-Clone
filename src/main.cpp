@@ -42,8 +42,9 @@ int main(int argv, char** args)
 
     SDL_RenderClear(renderer);
 
-    // Draw the Grid
+    // Draw the Grid in black
 
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     grid.draw(renderer);
 
     // Draw the background in light grey
