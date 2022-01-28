@@ -69,7 +69,7 @@ class Grid
     }
     
     void draw(SDL_Renderer* renderer);
-    void nextActiveLetter();
+    void nextLetter();
 };
 
 void Grid::draw(SDL_Renderer* renderer)
@@ -82,7 +82,7 @@ void Grid::draw(SDL_Renderer* renderer)
   }
 }
 
-void Grid::nextActiveLetter() {
+void Grid::nextLetter() {
   /* If col is equal to num cols
   AND row is equal to num rows, can't increment any more */
 
