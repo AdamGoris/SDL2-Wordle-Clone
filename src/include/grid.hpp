@@ -50,17 +50,16 @@ class Grid
       active_cell.col = 0;
 
       // Initialise rows vector. Special case for active row
-
+      int al;
       for (int i = 0; i < num_rows; i++)
       {
-        int* al = new int(-1);
+        al = -1;
         if (i == active_cell.row)
         {
-          *al = i;
+          al = i;
         } 
-        Row row(x_pos, y_pos, num_cols, letter_size, letter_gap, *al);
+        Row row(x_pos, y_pos, num_cols, letter_size, letter_gap, al);
         rows.push_back(row);
-        delete al;
 
         // Increment y pos for next row
 
@@ -70,6 +69,7 @@ class Grid
     
     void draw(SDL_Renderer* renderer);
     void nextLetter();
+    void previousLetter();
 };
 
 void Grid::draw(SDL_Renderer* renderer)
@@ -113,8 +113,44 @@ void Grid::nextLetter() {
     return;
   }
 
-  // Otherwise, increment col and deactivate previous col
+  // Otherwise, increment col and activate new col
 
   active_cell.col ++;
+  rows[active_cell.row].activate(active_cell.col);
+}
+
+void Grid::previousLetter() {
+  /* If col and row are both 0,
+  can't decrement any further */
+
+  if (active_cell.col == 0 && active_cell.row == 0)
+  {
+    return;
+  }
+
+  /* If col is equal to 0 BUT rows are greater than 0,
+  Move to previous row and set col to last column */
+
+  if (active_cell.col == 0 && active_cell.row > 0)
+  {
+    // Deactivate previous row
+
+    rows[active_cell.row].deactivate();
+
+    // Update col, row
+
+    active_cell.col = num_cols - 1;
+    active_cell.row--;
+
+    // Activate new row
+
+    rows[active_cell.row].activate(active_cell.col);
+
+    return;
+  }
+
+  // Otherwise, decrement col and activate new col
+
+  active_cell.col--;
   rows[active_cell.row].activate(active_cell.col);
 }

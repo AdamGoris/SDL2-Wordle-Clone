@@ -30,16 +30,16 @@ class Row
       /* Set the x and y pos for each letter
       in the letters array. Special case for active letter */
 
+      bool is_active_letter;
       for (int i = 0; i < num_letters; i++)
       {
-        bool* is_active_letter = new bool(false);
+        is_active_letter = false;
         if (al == i)
         {
-          *is_active_letter = true;
+          is_active_letter = true;
         }
-        Letter letter(x_pos, y_pos, letter_size, *is_active_letter);
+        Letter letter(x_pos, y_pos, letter_size, is_active_letter);
         letters.push_back(letter);
-        delete is_active_letter;
 
         // Increment x_pos of next letter
 
