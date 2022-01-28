@@ -37,7 +37,11 @@ int main(int argv, char** args)
           }
           else if (event.key.keysym.sym == SDLK_RIGHT)
           {
-            grid.nextActiveLetter();
+            grid.nextLetter();
+          }
+          else if (event.key.keysym.sym == SDLK_LEFT)
+          {
+            grid.previousLetter();
           }
       }
     }
