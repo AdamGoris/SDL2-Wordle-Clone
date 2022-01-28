@@ -45,9 +45,7 @@ class Grid
 
 void Grid::draw(SDL_Renderer* renderer)
 {
-  // Set the draw color to black
-
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  // Draw all rows
 
   for (Row &row : rows)
   {

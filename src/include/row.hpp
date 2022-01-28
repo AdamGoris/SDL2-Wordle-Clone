@@ -44,11 +44,7 @@ class Row
 
 void Row::draw(SDL_Renderer* renderer)
 {
-  // Set the draw color to black
-
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-
-  // Draw NUM_LETTERS letters
+  // Draw all letters
 
   for (Letter &letter : letters)
   {
