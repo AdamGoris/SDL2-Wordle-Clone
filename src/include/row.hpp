@@ -13,25 +13,33 @@ class Row
     int num_letters;
     int letter_size;
     int letter_gap;
+    int active_letter; // set to 0 to num_letters-1, or -1 if this is not the active row
 
   public:
     vector<Letter> letters;
 
-    Row(int x, int y, int nl, int ls, int lg)
+    Row(int x, int y, int nl, int ls, int lg, int al)
     {
       x_pos = x;
       y_pos = y;
       num_letters = nl;
       letter_size = ls;
       letter_gap = lg;
+      active_letter = al;
 
       /* Set the x and y pos for each letter
-      in the letters array */
+      in the letters array. Special case for active letter */
 
       for (int i = 0; i < num_letters; i++)
       {
-        Letter letter(x_pos, y_pos, letter_size);
+        bool* is_active_letter = new bool(false);
+        if (al == i)
+        {
+          *is_active_letter = true;
+        }
+        Letter letter(x_pos, y_pos, letter_size, *is_active_letter);
         letters.push_back(letter);
+        delete is_active_letter;
 
         // Increment x_pos of next letter
 
@@ -40,6 +48,8 @@ class Row
     }
 
     void draw(SDL_Renderer* renderer);
+    void activate(int al);
+    void deactivate();
 };
 
 void Row::draw(SDL_Renderer* renderer)
@@ -50,4 +60,18 @@ void Row::draw(SDL_Renderer* renderer)
   {
     letter.draw(renderer);
   }
+}
+
+void Row::activate(int al)
+{
+  active_letter = al;
+  letters[al].activate();
+}
+
+void Row::deactivate()
+{
+  // Deactivate letter then deactivate this row
+
+  letters[active_letter].deactivate();
+  active_letter = -1;
 }
