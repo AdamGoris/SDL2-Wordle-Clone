@@ -97,15 +97,24 @@ void Grid::nextActiveLetter() {
 
   if (active_cell.col >= num_cols - 1)
   {
+    // Deactivate previous row
+
+    rows[active_cell.row].deactivate();
+
+    // Set new col, row values
+
     active_cell.col = 0;
     active_cell.row++;
 
-    // Also 
+    // Activate the new row
+
+    rows[active_cell.row].activate(active_cell.col);
 
     return;
   }
 
-  // Otherwise, simply increment col
+  // Otherwise, increment col and deactivate previous col
 
   active_cell.col ++;
+  rows[active_cell.row].activate(active_cell.col);
 }

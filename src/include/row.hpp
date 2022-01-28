@@ -64,8 +64,14 @@ void Row::draw(SDL_Renderer* renderer)
 
 void Row::activate(int al)
 {
+  // Deactivate old active letter
+
+  letters[active_letter].deactivate();
+
+  // Activate new letter
+
   active_letter = al;
-  letters[al].activate();
+  letters[active_letter].activate();
 }
 
 void Row::deactivate()
