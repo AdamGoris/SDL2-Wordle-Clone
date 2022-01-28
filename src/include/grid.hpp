@@ -33,16 +33,16 @@ class Grid
   public:
     vector<Row> rows;
 
-    Grid(int x, int y, int nc, int nr, int ls, int lg)
+    Grid(int x, int y, int n_c, int n_r, int l_s, int l_g)
     {
       // Initialise given values
 
       x_pos = x;
       y_pos = y;
-      num_cols = nc;
-      num_rows = nr;
-      letter_size = ls;
-      letter_gap = ls + lg;
+      num_cols = n_c;
+      num_rows = n_r;
+      letter_size = l_s;
+      letter_gap = letter_size + l_g;
 
       // Initial active cell is 0, 0
 
@@ -50,15 +50,15 @@ class Grid
       active_cell.col = 0;
 
       // Initialise rows vector. Special case for active row
-      int al;
+      int a_l;
       for (int i = 0; i < num_rows; i++)
       {
-        al = -1;
+        a_l = -1; // -1 for inactive letter
         if (i == active_cell.row)
         {
-          al = i;
+          a_l = i;
         } 
-        Row row(x_pos, y_pos, num_cols, letter_size, letter_gap, al);
+        Row row(x_pos, y_pos, num_cols, letter_size, letter_gap, a_l);
         rows.push_back(row);
 
         // Increment y pos for next row
