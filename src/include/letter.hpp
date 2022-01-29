@@ -7,7 +7,7 @@ class Letter
     int x_pos;
     int y_pos;
     int size;
-    char* value = NULL; // the character associated with this letter object
+    char value = NULL; // the character associated with this letter object
     bool value_is_visible; // whether to show the value in this letter
     bool is_active; // Whether this is the active letter
 
@@ -29,7 +29,7 @@ class Letter
     void draw(SDL_Renderer* renderer);
     void activate();
     void deactivate();
-    void setValue(char* v);
+    void setValue(char v);
 };
 
 void Letter::draw(SDL_Renderer* renderer)
@@ -58,7 +58,7 @@ void Letter::draw(SDL_Renderer* renderer)
 
     // Initialise the text surface and texture
     
-    SDL_Surface* text_surface = TTF_RenderText_Solid(sans, value, black);
+    SDL_Surface* text_surface = TTF_RenderText_Solid(sans, &value, black);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, text_surface);
 
     // Render the letter on the Rect
@@ -92,7 +92,7 @@ void Letter::deactivate()
   is_active = false;
 }
 
-void Letter::setValue(char* v)
+void Letter::setValue(char v)
 {
   value = v;
 }
