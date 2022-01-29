@@ -45,6 +45,12 @@ int main(int argv, char** args)
           {
             grid.previousLetter();
           }
+          else if (event.key.keysym.scancode >= 97 || event.key.keysym.scancode <= 122)
+          {
+            const char* key = SDL_GetKeyName(event.key.keysym.sym);
+            char key_char = *key;
+            grid.setActiveValue(&key_char);
+          }
       }
     }
 
