@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 class Letter
 {
@@ -9,6 +10,11 @@ class Letter
     char value = '\0'; // the character associated with this letter object
     bool value_is_visible; // whether to show the value in this letter
     bool is_active; // Whether this is the active letter
+
+    // For displaying the letter text
+
+    TTF_Font* sans = TTF_OpenFont("../fonts/OpenSans-Light.ttf", 24);
+    SDL_Color black = {0, 0, 0};
 
   public:
     Letter(int x, int y, int s, bool ia)
@@ -27,6 +33,11 @@ class Letter
 
 void Letter::draw(SDL_Renderer* renderer)
 {
+  // Initialise the text surface and texture
+  
+  SDL_Surface* text_surface = TTF_RenderText_Solid(sans, "test", black);
+  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, text_surface);
+
   // Draw the outer rect of the letter
 
   SDL_Rect rect;
@@ -34,7 +45,11 @@ void Letter::draw(SDL_Renderer* renderer)
   rect.y = y_pos;
   rect.w = size;
   rect.h = size;
-  SDL_RenderDrawRect(renderer, &rect);
+
+  // Render the letter on the Rect
+
+  SDL_RenderCopy(renderer, texture, NULL, &rect);
+
 
   // If this letter is active, draw another rect (for now)
 
