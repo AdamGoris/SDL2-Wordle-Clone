@@ -7,13 +7,13 @@ class Letter
     int x_pos;
     int y_pos;
     int size;
-    char value = '\0'; // the character associated with this letter object
+    char* value = "/0"; // the character associated with this letter object
     bool value_is_visible; // whether to show the value in this letter
     bool is_active; // Whether this is the active letter
 
     // For displaying the letter text
 
-    TTF_Font* sans = TTF_OpenFont("../fonts/OpenSans-Light.ttf", 24);
+    TTF_Font* sans = TTF_OpenFont("./fonts/OpenSans-Light.ttf", 24);
     SDL_Color black = {0, 0, 0};
 
   public:
@@ -33,23 +33,40 @@ class Letter
 
 void Letter::draw(SDL_Renderer* renderer)
 {
-  // Initialise the text surface and texture
-  
-  SDL_Surface* text_surface = TTF_RenderText_Solid(sans, "test", black);
-  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, text_surface);
-
-  // Draw the outer rect of the letter
+  // Draw the border letter
 
   SDL_Rect rect;
   rect.x = x_pos;
   rect.y = y_pos;
   rect.w = size;
   rect.h = size;
+  SDL_RenderDrawRect(renderer, &rect);
 
-  // Render the letter on the Rect
+  // If this letter has a value, display it
 
-  SDL_RenderCopy(renderer, texture, NULL, &rect);
+  if (value != "/0")
+  {
 
+    // Create a rect to display the letter value
+
+    SDL_Rect text_rect;
+    text_rect.x = x_pos + 20;
+    text_rect.y = y_pos;
+    text_rect.w = size - 40;
+    text_rect.h = size;
+
+    // Initialise the text surface and texture
+    
+    SDL_Surface* text_surface = TTF_RenderText_Solid(sans, value, black);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, text_surface);
+
+    // Render the letter on the Rect
+
+    SDL_RenderCopy(renderer, texture, NULL, &text_rect);
+    
+    SDL_FreeSurface(text_surface);
+    SDL_DestroyTexture(texture);
+  }
 
   // If this letter is active, draw another rect (for now)
 
