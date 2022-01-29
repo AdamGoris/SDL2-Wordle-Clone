@@ -3,8 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**",
-                "C:/SDL2/SDL2-devel-2.0.20/x86_64-w64-mingw32/include/SDL2"
+                "${workspaceFolder}/**",                
+                "C:/msys64/mingw64/include/SDL2"
             ],
             "defines": [
                 "_DEBUG",
