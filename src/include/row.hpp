@@ -50,6 +50,7 @@ class Row
     void draw(SDL_Renderer* renderer);
     void activate(int acl);
     void deactivate();
+    void setActiveValue(char* v, int a_l);
 };
 
 void Row::draw(SDL_Renderer* renderer)
@@ -80,4 +81,11 @@ void Row::deactivate()
 
   letters[active_letter].deactivate();
   active_letter = -1;
+}
+
+// Set value of active letter a_l to v
+
+void Row::setActiveValue(char* v, int a_l)
+{
+  letters[a_l].setValue(v);  
 }

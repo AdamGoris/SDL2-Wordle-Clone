@@ -29,6 +29,7 @@ class Letter
     void draw(SDL_Renderer* renderer);
     void activate();
     void deactivate();
+    void setValue(char* v);
 };
 
 void Letter::draw(SDL_Renderer* renderer)
@@ -89,4 +90,9 @@ void Letter::activate()
 void Letter::deactivate()
 {
   is_active = false;
+}
+
+void Letter::setValue(char* v)
+{
+  value = v;
 }
