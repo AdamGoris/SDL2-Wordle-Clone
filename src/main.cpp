@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <iostream>
 #include <grid.hpp>
+#include <SDL_ttf.h>
 
 const int W_WIDTH = 1200;
 const int W_HEIGHT = 900;
@@ -8,6 +9,7 @@ const int W_HEIGHT = 900;
 int main(int argv, char** args)
 {
   SDL_Init(SDL_INIT_EVERYTHING);
+  TTF_Init();
 
   SDL_Window* window = SDL_CreateWindow("Wordle Clone", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W_WIDTH, W_HEIGHT, 0);
   SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
