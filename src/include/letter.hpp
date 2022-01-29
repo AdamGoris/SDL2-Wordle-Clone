@@ -7,7 +7,7 @@ class Letter
     int x_pos;
     int y_pos;
     int size;
-    char* value = "/0"; // the character associated with this letter object
+    char* value = NULL; // the character associated with this letter object
     bool value_is_visible; // whether to show the value in this letter
     bool is_active; // Whether this is the active letter
 
@@ -45,7 +45,7 @@ void Letter::draw(SDL_Renderer* renderer)
 
   // If this letter has a value, display it
 
-  if (value != "/0")
+  if (value)
   {
 
     // Create a rect to display the letter value
