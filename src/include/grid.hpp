@@ -70,6 +70,8 @@ class Grid
     void draw(SDL_Renderer* renderer);
     void nextLetter();
     void previousLetter();
+    void nextRow();
+    void previousRow();
     void setActiveValue(char v);
     void clearActiveLetter();
 };
@@ -86,7 +88,7 @@ void Grid::draw(SDL_Renderer* renderer)
   }
 }
 
-// Go to the next active letter
+// Move active to the next letter
 
 void Grid::nextLetter()
 {
@@ -103,7 +105,7 @@ void Grid::nextLetter()
   rows[active_cell.row].nextLetter();
 }
 
-// Go to the previous active letter
+// Move active to the previous letter
 
 void Grid::previousLetter()
 {
@@ -118,6 +120,20 @@ void Grid::previousLetter()
 
   active_cell.col--;
   rows[active_cell.row].previousLetter();
+}
+
+// Go to the next row
+
+void Grid::nextRow()
+{
+  active_cell.row++;
+}
+
+// Go to the previous active row
+
+void Grid::previousRow()
+{
+  active_cell.row--;
 }
 
 // Set the value of the active letter to v
