@@ -56,6 +56,8 @@ class Row
     bool allLettersSet();
 };
 
+// Draw the Row
+
 void Row::draw(SDL_Renderer* renderer)
 {
   // Draw all letters
@@ -66,6 +68,8 @@ void Row::draw(SDL_Renderer* renderer)
   }
 }
 
+// Go to the next active letter
+
 void Row::nextLetter()
 {
   // Deactivate old active letter then activate the next
@@ -74,6 +78,8 @@ void Row::nextLetter()
   active_letter++;
   letters[active_letter].activate();
 }
+
+// Go to the previous active letter
 
 void Row::previousLetter()
 {
@@ -91,10 +97,14 @@ void Row::setActiveValue(char v)
   letters[active_letter].value = v;  
 }
 
+// Clear the value of the active letter
+
 void Row::clearActiveLetter()
 {
   letters[active_letter].value = '\0';
 }
+
+// Return true if all letters in this Row have a value
 
 bool Row::allLettersSet()
 {
