@@ -71,6 +71,7 @@ class Grid
     void nextLetter();
     void previousLetter();
     void setActiveValue(char v);
+    void clearActiveLetter();
 };
 
 void Grid::draw(SDL_Renderer* renderer)
@@ -83,77 +84,34 @@ void Grid::draw(SDL_Renderer* renderer)
   }
 }
 
-void Grid::nextLetter() {
-  /* If col is equal to num cols
-  AND row is equal to num rows, can't increment any more */
-
-  if (active_cell.col >= num_cols - 1 && active_cell.row >= num_rows - 1)
-  {
-    return;
-  }
-
-  /* If col is equal to number of cols, 
-  AND row is less than num rows, 
-  reset col and increment row. */ 
+void Grid::nextLetter()
+{
+  // If column limit is reached, ignore
 
   if (active_cell.col >= num_cols - 1)
   {
-    // Deactivate previous row
-
-    rows[active_cell.row].deactivate();
-
-    // Set new col, row values
-
-    active_cell.col = 0;
-    active_cell.row++;
-
-    // Activate the new row
-
-    rows[active_cell.row].activate(active_cell.col);
-
     return;
   }
 
-  // Otherwise, increment col and activate new col
+  // Otherwise, Increment col and activate next col
 
-  active_cell.col ++;
-  rows[active_cell.row].activate(active_cell.col);
+  active_cell.col++;
+  rows[active_cell.row].nextLetter();
 }
 
-void Grid::previousLetter() {
-  /* If col and row are both 0,
-  can't decrement any further */
+void Grid::previousLetter()
+{
+  // If column is already 0, ignore
 
-  if (active_cell.col == 0 && active_cell.row == 0)
+  if (active_cell.col <= 0)
   {
     return;
   }
 
-  /* If col is equal to 0 BUT rows are greater than 0,
-  Move to previous row and set col to last column */
-
-  if (active_cell.col == 0 && active_cell.row > 0)
-  {
-    // Deactivate previous row
-
-    rows[active_cell.row].deactivate();
-
-    // Update col, row
-
-    active_cell.col = num_cols - 1;
-    active_cell.row--;
-
-    // Activate new row
-
-    rows[active_cell.row].activate(active_cell.col);
-
-    return;
-  }
-
-  // Otherwise, decrement col and activate new col
+  // Otherwise, Decrement col and activate previous col
 
   active_cell.col--;
-  rows[active_cell.row].activate(active_cell.col);
+  rows[active_cell.row].previousLetter();
 }
 
 // Set the value of the active letter to v
