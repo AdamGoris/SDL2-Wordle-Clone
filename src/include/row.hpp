@@ -13,6 +13,7 @@ class Row
     int num_letters;
     int letter_size;
     int letter_gap;
+    bool is_active;
     int active_letter; // set to 0 to num_letters-1, or -1 if this is not the active row
 
   public:
@@ -48,9 +49,10 @@ class Row
     }
 
     void draw(SDL_Renderer* renderer);
-    void activate(int acl);
-    void deactivate();
+    void nextLetter();
+    void previousLetter();
     void setActiveValue(char v, int a_l);
+    bool allLettersSet();
 };
 
 void Row::draw(SDL_Renderer* renderer)
@@ -63,7 +65,7 @@ void Row::draw(SDL_Renderer* renderer)
   }
 }
 
-void Row::activate(int acl)
+void Row::nextLetter()
 {
   // Deactivate old active letter
 
@@ -71,21 +73,34 @@ void Row::activate(int acl)
 
   // Activate new letter
 
-  active_letter = acl;
+  active_letter++;
   letters[active_letter].activate();
 }
 
-void Row::deactivate()
+void Row::previousLetter()
 {
   // Deactivate letter then deactivate this row
 
   letters[active_letter].deactivate();
-  active_letter = -1;
+  active_letter--;
 }
 
 // Set value of active letter a_l to v
 
 void Row::setActiveValue(char v, int a_l)
 {
-  letters[a_l].setValue(v);  
+  letters[a_l].value = v;  
+}
+
+bool Row::allLettersSet()
+{
+  for (Letter &letter : letters)
+  {
+    if (letter.value == '\0') // letter has no value
+    {
+      return false;
+    }
+  }
+
+  return true;
 }
