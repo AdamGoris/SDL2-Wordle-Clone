@@ -50,6 +50,13 @@ int main(int argv, char** args)
             const char* key = SDL_GetKeyName(event.key.keysym.sym);
             grid.setActiveValue(*key);
           }
+          else if (event.key.keysym.sym == SDLK_BACKSPACE)
+          {
+            // Clear letter value and move to previous letter
+
+            grid.clearActiveLetter();
+            grid.previousLetter();
+          }
       }
     }
 
