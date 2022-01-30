@@ -44,13 +44,17 @@ class Grid
       letter_size = l_s;
       letter_gap = letter_size + l_g;
 
+      // FIXME: alter method of active Row/Letter
+      // Use pointer for active letter?
+      // keep track of active row using Row.is_active
+
       // Initial active cell is 0, 0
 
       active_cell.row = 0;
       active_cell.col = 0;
 
       // Initialise rows vector. Special case for active row
-      int a_l;
+
       for (int i = 0; i < num_rows; i++)
       {
         a_l = -1; // -1 for inactive letter
@@ -74,6 +78,7 @@ class Grid
     void previousRow();
     void setActiveValue(char v);
     void clearActiveLetter();
+    void enterWord();
 };
 
 // Draw the Grid
@@ -126,7 +131,13 @@ void Grid::previousLetter()
 
 void Grid::nextRow()
 {
+  // FIXME: Deactivate the active row
+
+  active_cell.col = 0;
   active_cell.row++;
+
+  // FIXME: Activate the new row
+
 }
 
 // Go to the previous active row
@@ -152,4 +163,27 @@ void Grid::setActiveValue(char v)
 void Grid::clearActiveLetter()
 {
   rows[active_cell.row].clearActiveLetter();
+}
+
+// Finished entering letters into the active row
+// Validate and move to next row
+
+void Grid::enterWord()
+{
+  // If row has missing values, don't submit
+
+  if (!rows[active_cell.row].allLettersSet())
+  {
+    // FIXME: provide a reason why the row was not submitted
+    return;
+  }
+
+  // All letters have been submitted
+  // FIXME: Ensure the word is a valid word
+
+  // FIXME: show user letter hints
+
+  // Move to the next row
+
+  nextRow();
 }
