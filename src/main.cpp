@@ -57,6 +57,10 @@ int main(int argv, char** args)
             grid.clearActiveLetter();
             grid.previousLetter();
           }
+          else if (event.key.keysym.sym == SDLK_KP_ENTER)
+          {
+            grid.enterWord();
+          }
       }
     }
 
