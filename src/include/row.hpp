@@ -51,7 +51,8 @@ class Row
     void draw(SDL_Renderer* renderer);
     void nextLetter();
     void previousLetter();
-    void setActiveValue(char v, int a_l);
+    void setActiveValue(char v);
+    void clearActiveLetter();
     bool allLettersSet();
 };
 
@@ -67,29 +68,32 @@ void Row::draw(SDL_Renderer* renderer)
 
 void Row::nextLetter()
 {
-  // Deactivate old active letter
+  // Deactivate old active letter then activate the next
 
   letters[active_letter].deactivate();
-
-  // Activate new letter
-
   active_letter++;
   letters[active_letter].activate();
 }
 
 void Row::previousLetter()
 {
-  // Deactivate letter then deactivate this row
+  // Deactivate old active letter then activate the previous
 
   letters[active_letter].deactivate();
   active_letter--;
+  letters[active_letter].activate();
 }
 
 // Set value of active letter a_l to v
 
-void Row::setActiveValue(char v, int a_l)
+void Row::setActiveValue(char v)
 {
-  letters[a_l].value = v;  
+  letters[active_letter].value = v;  
+}
+
+void Row::clearActiveLetter()
+{
+  letters[active_letter].value = '\0';
 }
 
 bool Row::allLettersSet()
