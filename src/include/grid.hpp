@@ -74,6 +74,8 @@ class Grid
     void clearActiveLetter();
 };
 
+// Draw the Grid
+
 void Grid::draw(SDL_Renderer* renderer)
 {
   // Draw all rows
@@ -83,6 +85,8 @@ void Grid::draw(SDL_Renderer* renderer)
     row.draw(renderer);
   }
 }
+
+// Go to the next active letter
 
 void Grid::nextLetter()
 {
@@ -98,6 +102,8 @@ void Grid::nextLetter()
   active_cell.col++;
   rows[active_cell.row].nextLetter();
 }
+
+// Go to the previous active letter
 
 void Grid::previousLetter()
 {
@@ -118,9 +124,16 @@ void Grid::previousLetter()
 
 void Grid::setActiveValue(char v)
 {
-  rows[active_cell.row].setActiveValue(v, active_cell.col);
+  rows[active_cell.row].setActiveValue(v);
 
   // Move to the next cell
 
   nextLetter();
+}
+
+// Clear the value of the active letter
+
+void Grid::clearActiveLetter()
+{
+  rows[active_cell.row].clearActiveLetter();
 }
