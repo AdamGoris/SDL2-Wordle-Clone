@@ -15,15 +15,6 @@ Download and Install MSYS2 from https://www.msys2.org/ and follow the instructio
 
 Following these steps installs gcc, g++, and gdb for compiling and debugging C/C++ programs as well as SDL2, SDL2_ttf
 
-### SDL2
-
-Go to https://www.libsdl.org/download-2.0.php
-Download and install the Windows 64 Runtime Binaries and the Development Libraries.
-
-Extract both zips to `C:/SDL2`
-Rename the runtime binaries folder to `SDL2-2.0.20`
-Rename the development libraries folder to `SDL2-devel-2.0.20` 
-
 ### GLAD
 
 Go to https://glad.dav1d.de/ and enter the following fields:
