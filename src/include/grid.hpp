@@ -31,10 +31,14 @@ class Grid
       int col;
     } active_cell;
 
+    // The word that the player is trying to guess
+
+    string word_to_guess;
+
     public:
       vector<vector<Letter>> grid;
 
-      Grid(int x, int y, int n_r, int n_c, int l_s, int l_g)
+      Grid(int x, int y, int n_r, int n_c, int l_s, int l_g, string w_t_g)
       {
         // Initialise given values
 
@@ -44,6 +48,7 @@ class Grid
         num_cols = n_c;
         letter_size = l_s;
         letter_gap = l_s + l_g;
+        word_to_guess = w_t_g;
 
         // Initialise active cell at 0,0
 
@@ -92,7 +97,7 @@ class Grid
       void previousRow();
       void setActiveLetterValue(char v);
       void clearActiveLetter();
-      void enterWord();
+      void checkActiveRow();
 };
 
 // Draw the Grid of Letters
@@ -206,9 +211,9 @@ void Grid::clearActiveLetter()
   grid[active_cell.row][active_cell.col].clearValue();
 }
 
-// Check the word in the active row and display results
+// Check the word in the active row against the word to guess
 
-void Grid::enterWord()
+void Grid::checkActiveRow()
 {
   // FIXME: needs proper implementation once dictionary has been implemented
 
