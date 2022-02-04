@@ -9,6 +9,7 @@ class Letter
     int size;
     bool value_is_visible; // whether to show the value in this letter
     bool is_active; // Whether this is the active letter
+    char value = '\0'; // the character associated with this letter object
 
     // For displaying the letter text
 
@@ -16,20 +17,22 @@ class Letter
     SDL_Color black = {0, 0, 0};
 
   public:
-    char value = '\0'; // the character associated with this letter object
-
-    Letter(int x, int y, int s, bool ia)
+    Letter(int x, int y, int s, bool i_a)
     {
       value_is_visible = false;
       x_pos = x;
       y_pos = y;
       size = s;
-      is_active = ia;
+      is_active = i_a;
     }
 
     void draw(SDL_Renderer* renderer);
     void activate();
     void deactivate();
+    char getValue();
+    void setValue(char v);
+    void clearValue();
+    bool hasValue();
 };
 
 void Letter::draw(SDL_Renderer* renderer)
@@ -90,4 +93,24 @@ void Letter::activate()
 void Letter::deactivate()
 {
   is_active = false;
+}
+
+char Letter::getValue()
+{
+  return value;
+}
+
+void Letter::setValue(char v)
+{
+  value = v;
+}
+
+void Letter::clearValue()
+{
+  value = '\0';
+}
+
+bool Letter::hasValue()
+{
+  return value != '\0';
 }
