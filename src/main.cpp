@@ -1,7 +1,8 @@
 #include <SDL.h>
-#include <iostream>
-#include <grid.hpp>
 #include <SDL_ttf.h>
+#include <iostream>
+#include <string>
+#include <grid.hpp>
 
 const int W_WIDTH = 1200;
 const int W_HEIGHT = 900;
@@ -17,10 +18,14 @@ int main(int argv, char** args)
   bool isRunning = true;
   SDL_Event event;
 
+  // Get the word the player has to guess
+
+  string word_to_guess = "IRATE";
+
   // Initialize Grid of Letters
   // At x,y = 50,50; 5 cols and rows; letter size 100 with gap 50;
 
-  Grid grid(50, 50, 5, 5, 100, 50);
+  Grid grid(50, 50, 5, 5, 100, 50, word_to_guess);
 
   while (isRunning)
   {
