@@ -47,8 +47,11 @@ int main(int argv, char** args)
           }
           else if (event.key.keysym.sym >= 97 && event.key.keysym.sym <= 122)
           {
+            // Set active letter to the pressed value and move to the next letter
+
             const char* key = SDL_GetKeyName(event.key.keysym.sym);
-            grid.setActiveValue(*key);
+            grid.setActiveLetterValue(*key);
+            grid.nextLetter();
           }
           else if (event.key.keysym.sym == SDLK_BACKSPACE)
           {
