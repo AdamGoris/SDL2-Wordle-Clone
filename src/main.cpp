@@ -67,7 +67,7 @@ int main(int argv, char** args)
           }
           else if (event.key.keysym.sym == SDLK_RETURN)
           {
-            grid.enterWord();
+            grid.checkActiveRow();
           }
       }
     }
