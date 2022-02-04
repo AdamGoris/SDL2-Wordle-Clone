@@ -1,6 +1,5 @@
 #include <SDL.h>
-#include <row.hpp>
-#include <iostream>
+#include <letter.hpp>
 #include <vector>
 
 using namespace std;
@@ -8,17 +7,18 @@ using namespace std;
 class Grid
 {
   private:
-    // x, y for drawing
+
+    // x, y positions for drawing
 
     int x_pos;
     int y_pos;
 
-    // Number of columns and rows in the grid
+    // Number of rows and columns in the grid
 
-    int num_cols;
     int num_rows;
+    int num_cols;
 
-    // Size of each cell and gap between cells
+    // Size of each letter cell and distance between cells
 
     int letter_size;
     int letter_gap;
@@ -30,70 +30,86 @@ class Grid
       int col;
     } active_cell;
 
-  public:
-    vector<Row> rows;
+    public:
+      vector<vector<Letter>> grid;
 
-    Grid(int x, int y, int n_c, int n_r, int l_s, int l_g)
-    {
-      // Initialise given values
-
-      x_pos = x;
-      y_pos = y;
-      num_cols = n_c;
-      num_rows = n_r;
-      letter_size = l_s;
-      letter_gap = letter_size + l_g;
-
-      // FIXME: alter method of active Row/Letter
-      // Use pointer for active letter?
-      // keep track of active row using Row.is_active
-
-      // Initial active cell is 0, 0
-
-      active_cell.row = 0;
-      active_cell.col = 0;
-
-      // Initialise rows vector. Special case for active row
-
-      for (int i = 0; i < num_rows; i++)
+      Grid(int x, int y, int n_r, int n_c, int l_s, int l_g)
       {
-        a_l = -1; // -1 for inactive letter
-        if (i == active_cell.row)
+        // Initialise given values
+
+        x_pos = x;
+        y_pos = y;
+        num_rows = n_r;
+        num_cols = n_c;
+        letter_size = l_s;
+        letter_gap = l_s + l_g;
+
+        // Initialise active cell at 0,0
+
+        active_cell.row = 0;
+        active_cell.col = 0;
+
+        // Initialise all cells in the grid
+        // For each row, initialise num_cols Letters
+
+        for (int r = 0; r < num_rows; r++)
         {
-          a_l = i;
-        } 
-        Row row(x_pos, y_pos, num_cols, letter_size, letter_gap, a_l);
-        rows.push_back(row);
+          // Initialise the row
 
-        // Increment y pos for next row
+          vector<Letter> row;
+          for (int c = 0; c < num_cols; c++)
+          {
+            // Add Letter for each column
 
-        y_pos += letter_gap;
+            Letter letter(x_pos, y_pos, letter_size, false);
+            row.push_back(letter);
+
+            // Move x_pos
+
+            x_pos += letter_gap;
+          }
+
+          // Add the row to the grid
+
+          grid.push_back(row);
+
+          // Increment y_pos, reset x_pos
+
+          y_pos += letter_gap;
+          x_pos = x;
+        }
+
+        // Set the initial active Letter 0,0
+
+        grid[0][0].activate();
       }
-    }
-    
-    void draw(SDL_Renderer* renderer);
-    void nextLetter();
-    void previousLetter();
-    void nextRow();
-    void previousRow();
-    void setActiveValue(char v);
-    void clearActiveLetter();
-    void enterWord();
+
+      void draw(SDL_Renderer* renderer);
+      void nextLetter();
+      void previousLetter();
+      void nextRow();
+      void previousRow();
+      void setActiveLetterValue(char v);
+      void clearActiveLetter();
+      void enterWord();
 };
 
-// Draw the Grid
+// Draw the Grid of Letters
 
 void Grid::draw(SDL_Renderer* renderer)
 {
-  // Draw all rows
+  // Draw each Letter in the letters grid
 
-  for (Row &row : rows)
+  for (vector<Letter> &rows : grid)
   {
-    row.draw(renderer);
+    for (Letter &letter : rows)
+    {
+      letter.draw(renderer);
+    }
   }
 }
 
-// Move active to the next letter
+// Move to the next letter in the row
 
 void Grid::nextLetter()
 {
@@ -104,13 +120,14 @@ void Grid::nextLetter()
     return;
   }
 
-  // Otherwise, Increment col and activate next col
+  // Otherwise, deactivate active letter and activate the next
 
+  grid[active_cell.row][active_cell.col].deactivate();
   active_cell.col++;
-  rows[active_cell.row].nextLetter();
+  grid[active_cell.row][active_cell.col].activate();
 }
 
-// Move active to the previous letter
+// Move to the previous letter in the row
 
 void Grid::previousLetter()
 {
@@ -121,69 +138,88 @@ void Grid::previousLetter()
     return;
   }
 
-  // Otherwise, Decrement col and activate previous col
+  // Otherwise, deactivate current letter and activate the previous
 
+  grid[active_cell.row][active_cell.col].deactivate();
   active_cell.col--;
-  rows[active_cell.row].previousLetter();
+  grid[active_cell.row][active_cell.col].activate();
 }
 
-// Go to the next row
+// Move to the next Row in the Grid
 
 void Grid::nextRow()
 {
-  // FIXME: Deactivate the active row
+  // If row limit is reached, ignore
 
-  active_cell.col = 0;
+  if (active_cell.row >= num_rows - 1)
+  {
+    return;
+  }
+
+  // Otherwise, deactivate current letter, move to next row, reset column
+
+  grid[active_cell.row][active_cell.col].deactivate();
   active_cell.row++;
-
-  // FIXME: Activate the new row
-
+  active_cell.col = 0;
+  grid[active_cell.row][active_cell.col].activate();
 }
 
-// Go to the previous active row
+// Move to the previous Row in the Grid
+// NOTE: In the game this should not be possible
 
 void Grid::previousRow()
 {
+  // If row is already 0, ignore
+
+  if (active_cell.row <= 0)
+  {
+    return;
+  }
+
+  // Otherwise, deactivate current letter, move to previous row, set column to max
+
+  grid[active_cell.row][active_cell.col].deactivate();
   active_cell.row--;
+  active_cell.col = num_cols - 1;
+  grid[active_cell.row][active_cell.col].activate();
 }
 
-// Set the value of the active letter to v
+// Set the value of the active letter to char v
 
-void Grid::setActiveValue(char v)
+void Grid::setActiveLetterValue(char v)
 {
-  rows[active_cell.row].setActiveValue(v);
-
-  // Move to the next cell
-
-  nextLetter();
+  grid[active_cell.row][active_cell.col].setValue(v);
 }
 
 // Clear the value of the active letter
 
 void Grid::clearActiveLetter()
 {
-  rows[active_cell.row].clearActiveLetter();
+  // If active letter is already clear, clear the letter before this one instead
+
+  if (!grid[active_cell.row][active_cell.col].hasValue())
+  {
+    previousLetter();
+  }
+
+  grid[active_cell.row][active_cell.col].clearValue();
 }
 
-// Finished entering letters into the active row
-// Validate and move to next row
+// Check the word in the active row and display results
 
 void Grid::enterWord()
 {
-  // If row has missing values, don't submit
+  // FIXME: needs proper implementation once dictionary has been implemented
 
-  if (!rows[active_cell.row].allLettersSet())
+  // Move to the next row provided all letters in the current row have a value
+
+  for (Letter &letter : grid[active_cell.row])
   {
-    // FIXME: provide a reason why the row was not submitted
-    return;
+    if (!letter.hasValue())
+    {
+      return;
+    }
   }
-
-  // All letters have been submitted
-  // FIXME: Ensure the word is a valid word
-
-  // FIXME: show user letter hints
-
-  // Move to the next row
 
   nextRow();
 }
