@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <letter.hpp>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -211,15 +212,24 @@ void Grid::enterWord()
 {
   // FIXME: needs proper implementation once dictionary has been implemented
 
-  // Move to the next row provided all letters in the current row have a value
+  // Construct a string of all characters in the row
 
+  string row_word;
   for (Letter &letter : grid[active_cell.row])
   {
+    // If any letter has not been set, ignore
+
     if (!letter.hasValue())
     {
       return;
     }
+
+    // Otherwise, add the letters value to the string
+
+    row_word += letter.getValue();
   }
+
+  // Construct a string of all characters in the row
 
   nextRow();
 }
