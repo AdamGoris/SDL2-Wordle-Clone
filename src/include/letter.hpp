@@ -10,7 +10,12 @@ class Letter
     bool value_is_visible; // whether to show the value in this letter
     bool is_active; // Whether this is the active letter
     char value = '\0'; // the character associated with this letter object
-    SDL_Color background = {245, 245, 245, 255}; 
+    struct {
+      int r = 245;
+      int g = 245;
+      int b = 245;
+      int a = 255;
+    } background;
 
     // For displaying the letter text
 
