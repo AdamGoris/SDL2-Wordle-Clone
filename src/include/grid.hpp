@@ -97,6 +97,7 @@ class Grid
       void previousRow();
       void setActiveLetterValue(char v);
       void clearActiveLetter();
+      string extractRowWord();
       void checkActiveRow();
 };
 
@@ -211,12 +212,10 @@ void Grid::clearActiveLetter()
   grid[active_cell.row][active_cell.col].clearValue();
 }
 
-// Check the word in the active row against the word to guess
+// Extract the word from the active row
 
-void Grid::checkActiveRow()
+string Grid::extractRowWord()
 {
-  // FIXME: needs proper implementation once dictionary has been implemented
-
   // Construct a string of all characters in the row
 
   string row_word;
@@ -226,7 +225,7 @@ void Grid::checkActiveRow()
 
     if (!letter.hasValue())
     {
-      return;
+      return "";
     }
 
     // Otherwise, add the letters value to the string
@@ -234,7 +233,62 @@ void Grid::checkActiveRow()
     row_word += letter.getValue();
   }
 
-  // Construct a string of all characters in the row
+  return row_word;
+}
+
+// Check the word in the active row against the word to guess
+
+void Grid::checkActiveRow()
+{
+  // construct the word from the active row
+
+  string row_word = extractRowWord();
+
+  // If word not valid, ignore check
+
+  if (row_word == "")
+  {
+    return;
+  }
+
+  // Check matches in entered word against word to guess
+
+  Letter* letter;
+  bool in_word;
+  for (int i = 0; i < row_word.length(); i++)
+  {
+    // Get the letter object corresponding to this value
+
+    letter = &grid[active_cell.row][i];
+    in_word = false;
+    for (int j = 0; j < word_to_guess.length(); j++)
+    {
+      if (row_word.at(i) == word_to_guess.at(j))
+      {
+        in_word = true;
+
+        // Check if in same position
+
+        if (i == j)
+        {
+          letter->inPosition();
+          break;
+        }
+
+        letter->inWord();
+        break;
+      }
+    }
+
+    // Check if the letter was not in the word
+
+    if (!in_word)
+    {
+      letter->notInWord();
+    }
+  }
+
+  // Also move on to the next row
 
   nextRow();
 }
