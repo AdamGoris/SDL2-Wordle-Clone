@@ -10,6 +10,7 @@ class Letter
     bool value_is_visible; // whether to show the value in this letter
     bool is_active; // Whether this is the active letter
     char value = '\0'; // the character associated with this letter object
+    SDL_Color background = {245, 245, 245, 255}; 
 
     // For displaying the letter text
 
@@ -33,18 +34,29 @@ class Letter
     void setValue(char v);
     void clearValue();
     bool hasValue();
+    void inWord();
+    void notInWord();
+    void inPosition();
 };
 
 void Letter::draw(SDL_Renderer* renderer)
 {
-  // Draw the border letter
+  // Draw the border rectangle
+
+  // Set drawing color to this letter's color
+
+  SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
 
   SDL_Rect rect;
   rect.x = x_pos;
   rect.y = y_pos;
   rect.w = size;
   rect.h = size;
-  SDL_RenderDrawRect(renderer, &rect);
+  SDL_RenderFillRect(renderer, &rect);
+
+  // Set render color back to black
+
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
   // If this letter has a value, display it
 
@@ -113,4 +125,31 @@ void Letter::clearValue()
 bool Letter::hasValue()
 {
   return value != '\0';
+}
+
+// This letter is in the word to guess, color it yellow
+
+void Letter::inWord()
+{
+  background.r = 214;
+  background.g = 195;
+  background.b = 24;
+}
+
+// This letter is not in the word to guess, color it grey
+
+void Letter::notInWord()
+{
+  background.r = 190;
+  background.g = 190;
+  background.b = 190;
+}
+
+// This letter is in the word to guess in its correct position, color it green
+
+void Letter::inPosition()
+{
+  background.r = 58;
+  background.g = 163;
+  background.b = 49;
 }
