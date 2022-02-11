@@ -26,9 +26,9 @@ int main(int argv, char** args)
   for (auto &c: *word_to_guess) c = toupper(c); // convert word_to_guess to uppercase
 
   // Initialize Grid of Letters
-  // At x,y = 50,50; 5 cols and rows; letter size 100 with gap 50;
+  // At x,y = 50,50; 6 rows, 5 cols; letter size 85 with gap 35;
 
-  Grid grid(50, 50, 5, 5, 100, 50, word_to_guess);
+  Grid grid(50, 50, 6, 5, 85, 35, word_to_guess);
 
   while (isRunning)
   {
