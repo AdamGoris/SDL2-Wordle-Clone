@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <grid.hpp>
+#include <words.hpp>
 
 const int W_WIDTH = 1200;
 const int W_HEIGHT = 900;
@@ -20,7 +21,9 @@ int main(int argv, char** args)
 
   // Get the word the player has to guess
 
-  string word_to_guess = "IRATE";
+  string* word_to_guess = new string;
+  word_to_guess = getWordToGuess(word_to_guess);
+  for (auto &c: *word_to_guess) c = toupper(c); // convert word_to_guess to uppercase
 
   // Initialize Grid of Letters
   // At x,y = 50,50; 5 cols and rows; letter size 100 with gap 50;
