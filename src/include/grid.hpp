@@ -33,12 +33,12 @@ class Grid
 
     // The word that the player is trying to guess
 
-    string word_to_guess;
+    string* word_to_guess;
 
     public:
       vector<vector<Letter>> grid;
 
-      Grid(int x, int y, int n_r, int n_c, int l_s, int l_g, string w_t_g)
+      Grid(int x, int y, int n_r, int n_c, int l_s, int l_g, string* w_t_g)
       {
         // Initialise given values
 
@@ -261,9 +261,9 @@ void Grid::checkActiveRow()
 
     letter = &grid[active_cell.row][i];
     in_word = false;
-    for (int j = 0; j < word_to_guess.length(); j++)
+    for (int j = 0; j < (*word_to_guess).length(); j++)
     {
-      if (row_word.at(i) == word_to_guess.at(j))
+      if (row_word.at(i) == (*word_to_guess).at(j))
       {
         in_word = true;
 
