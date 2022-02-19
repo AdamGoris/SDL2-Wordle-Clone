@@ -1,3 +1,4 @@
+#pragma once
 #include <SDL.h>
 #include <SDL_ttf.h>
 
@@ -32,7 +33,18 @@ class Letter
       is_active = i_a;
     }
 
+    Letter(char v, int s)
+    {
+      value = v;
+      value_is_visible = true;
+      x_pos = 0;
+      y_pos = 0;
+      size = s;
+      is_active = false;
+    }
+
     void draw(SDL_Renderer* renderer);
+    void setPos(int x, int y);
     void activate();
     void deactivate();
     char getValue();
