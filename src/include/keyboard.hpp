@@ -12,6 +12,10 @@ class Keyboard
     int y_pos;
     int letter_size; // The size of each Letter
     int letter_gap;
+
+    static const int NUM_TOP = 10;
+    static const int NUM_MID = 9;
+    static const int NUM_BOTTOM = 7;
   
   public:
     vector<Letter> alphabet;
@@ -33,9 +37,47 @@ class Keyboard
 
         ascii++;
       }
+
+      // Initialise arrays for each row in the keyboard
+
+      int top_row[NUM_TOP] = {16, 22, 4, 17, 19, 24, 20, 8, 14, 15}; // Top row is QWERTYUIOP
+      int middle_row[NUM_MID] = {0, 18, 3, 5, 6, 7, 9, 10, 11}; // Middle row is ASDFGHJKL
+      int bottom_row[NUM_BOTTOM] = {25, 23, 2, 21, 1, 13, 12}; // Bottom row is ZXCVBNM
+
+      // Set x and y position of each letter in each row
+
+      for (int i = 0; i < NUM_TOP; i++) // Top row
+      {
+        alphabet[top_row[i]].setPos(x, y);
+        x += letter_gap;
+      }
+
+      x = x_pos + (letter_size / 4); // Reset x with a slight offset
+      y += letter_gap;
+      for (int i = 0; i < NUM_MID; i++) // Middle row
+      {
+        alphabet[middle_row[i]].setPos(x, y);
+        x += letter_gap;
+      }
+
+      x = x_pos + (letter_size / 2); // Reset x with offset
+      y += letter_gap;
+      for (int i = 0; i < NUM_BOTTOM; i++) // Bottom row
+      {
+        alphabet[bottom_row[i]].setPos(x, y);
+        x += letter_gap;
+      }
     }
 
     void draw(SDL_Renderer* renderer);
 };
 
+void Keyboard::draw(SDL_Renderer* renderer)
+{
+  // Draw each letter in the keyboard
 
+  for (Letter &letter: alphabet)
+  {
+    letter.draw(renderer);
+  }
+}
