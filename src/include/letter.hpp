@@ -83,12 +83,12 @@ void Letter::draw(SDL_Renderer* renderer)
     // Create a rect to display the letter value
 
     SDL_Rect text_rect;
-    text_rect.x = x_pos + 20;
+    text_rect.x = x_pos + (size / 4);
     text_rect.y = y_pos;
-    text_rect.w = size - 40;
+    text_rect.w = size / 2;
     text_rect.h = size;
 
-    // Initialise the text surface and texture
+    // Initialise the text surface and textureq
     
     SDL_Surface* text_surface = TTF_RenderText_Solid(sans, &value, black);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, text_surface);
@@ -112,6 +112,12 @@ void Letter::draw(SDL_Renderer* renderer)
     a_rect.h = size - 10;
     SDL_RenderDrawRect(renderer, &a_rect);
   }
+}
+
+void Letter::setPos(int x, int y)
+{
+  x_pos = x;
+  y_pos = y;
 }
 
 void Letter::activate()
