@@ -6,7 +6,7 @@
 #include <words.hpp>
 #include <keyboard.hpp>
 
-const int W_WIDTH = 1200;
+const int W_WIDTH = 1500;
 const int W_HEIGHT = 900;
 
 int main(int argv, char** args)
@@ -29,11 +29,11 @@ int main(int argv, char** args)
   // Initialize Grid of Letters
   // At x,y = 50,50; 6 rows, 5 cols; letter size 85 with gap 35;
 
-  Grid grid(50, 50, 6, 5, 85, 35, word_to_guess);
+  Grid grid(20, 50, 6, 5, 85, 35, word_to_guess);
 
   // Initialise the keyboard Letters
 
-  Keyboard keyboard(60, 50, 15, 10);
+  Keyboard keyboard(620, 50, 65, 10);
 
   while (isRunning)
   {
@@ -84,10 +84,11 @@ int main(int argv, char** args)
 
     SDL_RenderClear(renderer);
 
-    // Draw the Grid in black
+    // Draw the Grid, Keyboard in black
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     grid.draw(renderer);
+    keyboard.draw(renderer);
 
     // Draw the background in light grey
 
